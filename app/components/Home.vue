@@ -1,41 +1,38 @@
 <template>
-    <Page>
-        <ActionBar>
-            <Label text="Home"/>
-        </ActionBar>
-
-        <GridLayout>
-            <Label class="info">
-                <FormattedString>
-                    <Span class="fas" text.decode="&#xf135; "/>
-                    <Span :text="message"/>
-                </FormattedString>
-            </Label>
-        </GridLayout>
-    </Page>
+  <Page
+    class="page"
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:nota="@nota/nativescript-webview-ext"
+  >
+    <ActionBar class="action-bar">
+      <Label class="action-bar-title" text="Player"></Label>
+    </ActionBar>
+    <WebViewExt
+      src="https://62f2-122-170-119-238.ngrok.io"
+      (loadStarted)="onLoadStarted($event)"
+      (loadFinished)="onLoadFinished($event)"
+    ></WebViewExt>
+  </Page>
 </template>
 
 <script>
-  export default {
-    computed: {
-      message() {
-        return "Blank {N}-Vue app";
-      }
-    }
-  };
+export default {
+  data() {
+    return {};
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  methods: {
+    onLoadStarted(evt) {
+      console.log("Load Started", evt);
+    },
+    onLoadFinished(evt) {
+      console.log("Load Finished", evt);
+    },
+    // window.nsWebViewBridge.emit("'message'", {
+    //   message: "Hello from NativeScript"
+    // });
+  },
+};
 </script>
-
-<style scoped lang="scss">
-    @import '@nativescript/theme/scss/variables/blue';
-
-    // Custom styles
-    .fas {
-        @include colorize($color: accent);
-    }
-
-    .info {
-        font-size: 20;
-        horizontal-align: center;
-        vertical-align: center;
-    }
-</style>
