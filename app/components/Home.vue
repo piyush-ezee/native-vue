@@ -5,7 +5,7 @@
     xmlns:nota="@nota/nativescript-webview-ext"
   >
     <ActionBar class="action-bar">
-      <Label class="action-bar-title" text="Player"></Label>
+      <Label class="action-bar-title" :text="'Player' + androidId"></Label>
     </ActionBar>
     <WebViewExt
       src="https://62f2-122-170-119-238.ngrok.io"
@@ -18,9 +18,13 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      androidId: null,
+    };
   },
   mounted() {
+    // 59+9(random HEX)+8(GMT Unix timestamp)+16(androidID)
+    this.androidId = android.provider.Settings.Secure.ANDROID_ID;
     console.log("mounted");
   },
   methods: {
