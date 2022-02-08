@@ -24,7 +24,10 @@ export default {
   },
   mounted() {
     // 59+9(random HEX)+8(GMT Unix timestamp)+16(androidID)
+    let time = new Date(new Date().toUTCString()).getTime();
+    let hex = 0;
     this.androidId = android.provider.Settings.Secure.ANDROID_ID;
+    const ANDROID_ID = "59" + time + hex + this.androidId;
     console.log("mounted");
   },
   methods: {
