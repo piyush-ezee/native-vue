@@ -5,14 +5,13 @@
     xmlns:nota="@nota/nativescript-webview-ext"
   >
     <ActionBar class="action-bar">
-      <Label class="action-bar-title" :text="'Player' + androidId"></Label>
+      <Label class="action-bar-title" :text="'Player'"></Label>
     </ActionBar>
     <WebViewExt
-      src="https://9cbc-122-170-119-238.ngrok.io"
-      @loadStarted="onLoadStarted($event)"
-      @loadFinished="onLoadFinished($event)"
+      src="https://7b7b-122-170-119-238.ngrok.io"
       @loaded="onLoaded($event)"
       @webConsole="webConsole($event)"
+      @requestKey="requestKey($event)"
     ></WebViewExt>
   </Page>
 </template>
@@ -34,53 +33,24 @@ export default {
 
     // this.androidId =
     //   "59" + hex + time + android.provider.Settings.Secure.ANDROID_ID;
-    
+
     //19 0's + androidId - same as old android code
-    this.androidId = `0000000000000000000${android.provider.Settings.Secure.ANDROID_ID}`
+    this.androidId = `0000000000000000000${android.provider.Settings.Secure.ANDROID_ID}`;
   },
   methods: {
-    onLoadStarted(evt) {
-      console.log("Load Started", evt.eventName);
-    },
-    onLoadFinished(evt) {
-      console.log("Load Finished", evt.eventName);
-      webview = evt.object;
-      webview.executeJavaScript(console.log("Execute JS"));
-      webview.on("getId", (res) => {
-        console.log("getId", res.url, res.data);
-        this.androidId.toString().toLowerCase();
-        webview.emitToWebView("id", { aid: this.androidId });
-      });
-
-      setInterval(() => {
-        webview.emitToWebView("id", {
-          message: "Hello from NativeScript",
-        });
-        this.androidId.toString().toUpperCase();
-      }, 5000);
-    },
     onLoaded(evt) {
-      console.log("Loaded", evt.eventName);
+      webview = evt.object;
     },
     webConsole(evt) {
       console.log("Web Console", evt.data);
     },
-    getUniqueId() {
+    getUniqueKey() {
       return this.androidId;
+    },
+    requestKey() {
+      console.log("Requesting Key");
+      webview.emitToWebView("uniqueKey", { uniqueKey: this.androidId });
     },
   },
 };
 </script>
-
-<!-- In Player
-
-setTimeout(() => {
-        window.nsWebViewBridge.on('id', {}, (res) => {
-          console.log('PLAYER getDeviceUniqueKey')
-        })
-        setInterval(() => {
-          window.nsWebViewBridge.emit('getId', { getId: 'PLAYER getID' }, () => {
-            console.log('PLAYER getId')
-          })
-        }, 5000)
-      }, 5000) -->
