@@ -27,14 +27,16 @@ export default {
     };
   },
   mounted() {
-    let time = new Date(new Date().toUTCString()).getTime();
-    let hex = [...Array(9)]
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join("");
+    // let time = new Date(new Date().toUTCString()).getTime();
+    // let hex = [...Array(9)]
+    //   .map(() => Math.floor(Math.random() * 16).toString(16))
+    //   .join("");
 
-    this.androidId =
-      "59" + hex + time + android.provider.Settings.Secure.ANDROID_ID;
-    console.log(this.androidId);
+    // this.androidId =
+    //   "59" + hex + time + android.provider.Settings.Secure.ANDROID_ID;
+    
+    //19 0's + androidId - same as old android code
+    this.androidId = `0000000000000000000${android.provider.Settings.Secure.ANDROID_ID}`
   },
   methods: {
     onLoadStarted(evt) {
@@ -62,6 +64,9 @@ export default {
     },
     webConsole(evt) {
       console.log("Web Console", evt.data);
+    },
+    getUniqueId() {
+      return this.androidId;
     },
   },
 };
