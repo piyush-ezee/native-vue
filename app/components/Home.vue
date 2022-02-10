@@ -5,10 +5,10 @@
     xmlns:nota="@nota/nativescript-webview-ext"
   >
     <ActionBar class="action-bar">
-      <Label class="action-bar-title" :text="'Player'"></Label>
+      <Label class="action-bar-title" :text="'Player' + androidId"></Label>
     </ActionBar>
     <WebViewExt
-      src="https://7b7b-122-170-119-238.ngrok.io"
+      src="https://04db-122-170-119-238.ngrok.io"
       @loaded="onLoaded($event)"
       @webConsole="webConsole($event)"
       @requestKey="requestKey($event)"
@@ -36,6 +36,7 @@ export default {
 
     //19 0's + androidId - same as old android code
     this.androidId = `0000000000000000000${android.provider.Settings.Secure.ANDROID_ID}`;
+    // this.androidId = `00000000000000000001234567812345678`;
   },
   methods: {
     onLoaded(evt) {
