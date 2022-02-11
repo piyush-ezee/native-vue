@@ -8,7 +8,7 @@
       <Label class="action-bar-title" :text="'Player' + androidId"></Label>
     </ActionBar>
     <WebViewExt
-      src="https://04db-122-170-119-238.ngrok.io"
+      src="https://3df6-122-170-119-238.ngrok.io"
       @loaded="onLoaded($event)"
       @webConsole="webConsole($event)"
       @requestKey="requestKey($event)"
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { Application } from "@nativescript/core";
 let webview;
 
 export default {
@@ -35,8 +36,11 @@ export default {
     //   "59" + hex + time + android.provider.Settings.Secure.ANDROID_ID;
 
     //19 0's + androidId - same as old android code
-    this.androidId = `0000000000000000000${android.provider.Settings.Secure.ANDROID_ID}`;
-    // this.androidId = `00000000000000000001234567812345678`;
+    let ANDROID_ID = android.provider.Settings.Secure.getString(
+      Application.android.context.getContentResolver(),
+      android.provider.Settings.Secure.ANDROID_ID
+    );
+    this.androidId = `0000000000000000000${ANDROID_ID}`;
   },
   methods: {
     onLoaded(evt) {
