@@ -7,12 +7,32 @@
     <ActionBar class="action-bar">
       <Label class="action-bar-title" :text="'Player' + androidId"></Label>
     </ActionBar>
-    <WebViewExt
-      src="https://3df6-122-170-119-238.ngrok.io"
-      @loaded="onLoaded($event)"
-      @webConsole="webConsole($event)"
-      @requestKey="requestKey($event)"
-    ></WebViewExt>
+    <ScrollView>
+      <RootLayout>
+        <AbsoluteLayout>
+          <Button
+            top="0"
+            left="0"
+            width="95%"
+            text="Load Player"
+            class="-primary"
+            @tap="loadPlayer"
+          ></Button
+        ></AbsoluteLayout>
+        <AbsoluteLayout>
+          <WebViewExt
+            left="0"
+            top="60"
+            width="100%"
+            height="800"
+            :src="playerUrl"
+            @loaded="onLoaded($event)"
+            @webConsole="webConsole($event)"
+            @requestKey="requestKey($event)"
+          ></WebViewExt>
+        </AbsoluteLayout>
+      </RootLayout>
+    </ScrollView>
   </Page>
 </template>
 
@@ -24,6 +44,7 @@ export default {
   data() {
     return {
       androidId: null,
+      playerUrl: "https://chilly-bird-6.loca.lt",
     };
   },
   mounted() {
@@ -55,6 +76,9 @@ export default {
     requestKey() {
       console.log("Requesting Key");
       webview.emitToWebView("uniqueKey", { uniqueKey: this.androidId });
+    },
+    loadPlayer() {
+      webview.src = this.playerUrl;
     },
   },
 };
