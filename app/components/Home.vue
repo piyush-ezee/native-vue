@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       androidId: null,
-      playerUrl: "https://chilly-bird-6.loca.lt",
+      playerUrl: "https://nice-sheep-77.loca.lt",
     };
   },
   mounted() {

@@ -3,6 +3,21 @@
   "main": "app/app.js",
   "version": "1.0.0",
   "private": true,
+  "nativescript": {
+    "id": "in.yflux.Player",
+    "platforms": [
+      "android"
+    ],
+    "platforms.android": {
+      "package": "in.yflux.Player",
+      "version": "1.0.0",
+      "name": "Signage Player",
+      "description": "Global Signage Player",
+      "vendor": "Yanolja",
+      "vendorId": "in.yflux",
+      "nativeBuild": true
+    }
+  },
   "dependencies": {
     "@nativescript/core": "~8.1.1",
     "@nativescript/theme": "~3.0.1",
