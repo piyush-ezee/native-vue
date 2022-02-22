@@ -1,38 +1,16 @@
 <template>
   <Page
     class="page"
+    actionBarHidden="true"
     xmlns="http://schemas.nativescript.org/tns.xsd"
     xmlns:nota="@nota/nativescript-webview-ext"
   >
-    <ActionBar class="action-bar">
-      <Label class="action-bar-title" :text="'Player' + androidId"></Label>
-    </ActionBar>
-    <ScrollView>
-      <RootLayout>
-        <AbsoluteLayout>
-          <Button
-            top="0"
-            left="0"
-            width="95%"
-            text="Load Player"
-            class="-primary"
-            @tap="loadPlayer"
-          ></Button
-        ></AbsoluteLayout>
-        <AbsoluteLayout>
-          <WebViewExt
-            left="0"
-            top="60"
-            width="100%"
-            height="800"
-            :src="playerUrl"
-            @loaded="onLoaded($event)"
-            @webConsole="webConsole($event)"
-            @requestKey="requestKey($event)"
-          ></WebViewExt>
-        </AbsoluteLayout>
-      </RootLayout>
-    </ScrollView>
+    <WebViewExt
+      :src="playerUrl"
+      @loaded="onLoaded($event)"
+      @webConsole="webConsole($event)"
+      @requestKey="requestKey($event)"
+    ></WebViewExt>
   </Page>
 </template>
 
@@ -44,7 +22,7 @@ export default {
   data() {
     return {
       androidId: null,
-      playerUrl: "https://nice-sheep-77.loca.lt",
+      playerUrl: "https://smooth-panda-61.loca.lt",
     };
   },
   mounted() {
@@ -70,15 +48,9 @@ export default {
     webConsole(evt) {
       console.log("Web Console", evt.data);
     },
-    getUniqueKey() {
-      return this.androidId;
-    },
     requestKey() {
       console.log("Requesting Key");
       webview.emitToWebView("uniqueKey", { uniqueKey: this.androidId });
-    },
-    loadPlayer() {
-      webview.src = this.playerUrl;
     },
   },
 };
